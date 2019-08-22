@@ -7,7 +7,7 @@ We will be exploring Lending Club’s loan origination data from 2007-2015, avai
 ## Part 1: Data Exploration and Evaluation
 
 In this section I will perform an exploratory data analysis on Lending Club's loan data.
-The detailed analysis and code can be found in this notebook: 
+The detailed analysis and code can be found in this notebook: [Loan Data - EDA.ipynb](https://www.google.com)
 
 ### Summary Findings: 
 
