@@ -1,4 +1,4 @@
-# Lending Club Loan Data Exploratory Analysis & Data Pipeline
+# Lending Club Loan Data: Exploratory Analysis & Data Pipeline
 
 ## Data
 
@@ -6,13 +6,13 @@ In this project I will be exploring Lending Club’s loan origination data from 
 
 ## Part 1: Data Exploration and Evaluation
 
-In this section I will perform an exploratory data analysis on Lending Club's loan data using a Jupyter notebook.
+In this section, I will perform an exploratory data analysis on Lending Club's loan data using a Jupyter notebook.
 The detailed analysis and code can be found here: [Loan Data - EDA.ipynb](https://github.com/cpapadimitriou/Lending-Club-Loan-Data/blob/master/Loan%20Data%20-%20EDA.ipynb)
 
 ### Summary Findings: 
 - After reading the data with python pandas, I carefully examined the features and wrote a data pipeline script to ensure the correct data types.
 - There was a large number of columns with missing values. I wrote a script to remove columns with more than 80% missing values. This thershold can be easily adjusted.
-- In the `1.4 Data Exploration` section of the `Loan Data - EDA,ipynb` notebook, I performed an exploratory analysis and gathered the following insights:
+- In the `1.4 Data Exploration` section of the `Loan Data - EDA.ipynb` notebook, I performed an exploratory analysis and gathered the following insights:
     * The summary statistics of the numerical variables showed a big variation in ranges among variables, indicating that a normalization of the features would be necessary before using this data for modeling purposes.
     * Certain variables (e.g. `annual income`) have high standard deviation values.
     * The average loan amount is around $15,000 but the median is $12,900, showing a negative skewness.
@@ -30,10 +30,9 @@ The detailed analysis and code can be found here: [Loan Data - EDA.ipynb](https:
 ## Part 2: Data Pipeline Engineering 
 
 In this section I will create a data model in a database engine, persist the dataset into this storage system in a fully automated way, and develop some data validation procedures.
-I will implement this using two approaches (1) a cloud based approach using AWS Glue and (2) a desktop solution using SQL*Lite and python.
-
-
-
+I will implement this using two approaches:
+* A cloud-based approach using AWS Glue 
+* A desktop solution using SQL*Lite and python (this is solution is outlined but not implemented)
 
 
 ### AWS Glue
@@ -44,10 +43,166 @@ AWS Glue is a fully managed extract, transform, and load (ETL) service that make
 
 https://docs.aws.amazon.com/glue/latest/dg/what-is-glue.html
 
-- Step 1. Upload the `loan.csv` file with the lending club data to an AWS S3 bucket 
+- **Step 1**. Upload the `loan.csv` file with the lending club data to an AWS S3 bucket 
 - Step 2. Pointing AWS Glue to my data file in the S3 bucket
 - Step 3. Create the data model/schema. In this step I use the AWS crawler to discover a schema and then publish the schema into the data catalog.
 The AWS crawler has built-in classifiers to recognize popular data types.
+
+```python
+loandata = glueContext.create_dynamic_frame.from_catalog(database="loandata", table_name="lending_club_load_data")
+print "Count: ", loandata.count()
+loandata.printSchema()
+```
+
+```
+Count:  2260668
+root
+|-- id: string
+|-- member_id: string
+|-- loan_amnt: double
+|-- funded_amnt: double
+|-- funded_amnt_inv: double
+|-- term: string
+|-- int_rate: double
+|-- installment: double
+|-- grade: string
+|-- sub_grade: string
+|-- emp_title: string
+|-- emp_length: string
+|-- home_ownership: string
+|-- annual_inc: double
+|-- verification_status: string
+|-- issue_d: date
+|-- loan_status: string
+|-- pymnt_plan: string
+|-- url: string
+|-- desc: string
+|-- purpose: string
+|-- title: string
+|-- zip_code: string
+|-- addr_state: string
+|-- dti: double
+|-- delinq_2yrs: long
+|-- earliest_cr_line: string
+|-- inq_last_6mths: long
+|-- mths_since_last_delinq: long
+|-- open_acc: long
+|-- pub_rec: long
+|-- revol_bal: long
+|-- revol_util: double
+|-- total_acc: long
+|-- initial_list_status: string
+|-- out_prncp: double
+|-- out_prncp_inv: double
+|-- total_pymnt: double
+|-- total_pymnt_inv: double
+|-- total_rec_prncp: double
+|-- total_rec_int: double
+|-- total_rec_late_fee: double
+|-- recoveries: double
+|-- collection_recovery_fee: double
+|-- last_pymnt_d: string
+|-- last_pymnt_amnt: double
+|-- next_pymnt_d: string
+|-- last_credit_pull_d: string
+|-- collections_12_mths_ex_med: long
+|-- mths_since_last_major_derog: long
+|-- policy_code: long
+|-- application_type: string
+|-- verification_status_joint: string
+|-- acc_now_delinq: long
+|-- tot_coll_amt: long
+|-- tot_cur_bal: long
+|-- open_acc_6m: long
+|-- open_act_il: long
+|-- open_il_12m: long
+|-- open_il_24m: long
+|-- mths_since_rcnt_il: long
+|-- total_bal_il: long
+|-- il_util: long
+|-- open_rv_12m: long
+|-- open_rv_24m: long
+|-- max_bal_bc: long
+|-- all_util: long
+|-- total_rev_hi_lim: long
+|-- inq_fi: long
+|-- total_cu_tl: long
+|-- inq_last_12m: long
+|-- acc_open_past_24mths: long
+|-- avg_cur_bal: long
+|-- bc_open_to_buy: long
+|-- bc_util: double
+|-- chargeoff_within_12_mths: long
+|-- delinq_amnt: long
+|-- mo_sin_old_il_acct: long
+|-- mo_sin_old_rev_tl_op: long
+|-- mo_sin_rcnt_rev_tl_op: long
+|-- mo_sin_rcnt_tl: long
+|-- mort_acc: long
+|-- mths_since_recent_bc: long
+|-- mths_since_recent_inq: long
+|-- num_accts_ever_120_pd: long
+|-- num_actv_bc_tl: long
+|-- num_actv_rev_tl: long
+|-- num_bc_sats: long
+|-- num_bc_tl: long
+|-- num_il_tl: long
+|-- num_op_rev_tl: long
+|-- num_rev_accts: long
+|-- num_rev_tl_bal_gt_0: long
+|-- num_sats: long
+|-- num_tl_120dpd_2m: long
+|-- num_tl_30dpd: long
+|-- num_tl_90g_dpd_24m: long
+|-- num_tl_op_past_12m: long
+|-- pct_tl_nvr_dlq: double
+|-- percent_bc_gt_75: double
+|-- pub_rec_bankruptcies: long
+|-- tax_liens: long
+|-- tot_hi_cred_lim: long
+|-- total_bal_ex_mort: long
+|-- total_bc_limit: long
+|-- total_il_high_credit_limit: long
+|-- sec_app_earliest_cr_line: string
+|-- hardship_flag: string
+|-- hardship_type: string
+|-- hardship_reason: string
+|-- hardship_status: string
+|-- deferral_term: string
+|-- hardship_amount: string
+|-- hardship_start_date: date
+|-- hardship_end_date: date
+|-- payment_plan_start_date: date
+|-- hardship_length: string
+|-- hardship_dpd: string
+|-- hardship_loan_status: string
+|-- orig_projected_additional_accrued_interest: string
+|-- hardship_payoff_balance_amount: string
+|-- hardship_last_payment_amount: string
+|-- disbursement_method: string
+|-- debt_settlement_flag: string
+|-- debt_settlement_flag_date: date
+|-- settlement_status: string
+|-- settlement_date: date
+|-- settlement_amount: string
+|-- settlement_percentage: string
+|-- settlement_term: string
+|-- annual_inc_joint: double
+|-- dti_joint: double
+|-- mths_since_recent_revol_delinq: long
+|-- revol_bal_joint: long
+|-- sec_app_inq_last_6mths: long
+|-- sec_app_mort_acc: long
+|-- sec_app_open_acc: long
+|-- sec_app_revol_util: double
+|-- sec_app_open_act_il: long
+|-- sec_app_num_rev_accts: long
+|-- sec_app_chargeoff_within_12_mths: long
+|-- sec_app_collections_12_mths_ex_med: long
+|-- mths_since_last_record: long
+|-- mths_since_recent_bc_dlq: long
+|-- sec_app_mths_since_last_major_derog: long
+```
 
 - Step 4. The next step is the mapping. Here I map the sourced schema discovered by the AWS crawler to my target schema.
 - Step 5. Edit and Explore - running queries against the data (using SQL queries on AWS Athena)
