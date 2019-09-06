@@ -218,7 +218,7 @@ I then added 2 triggers to run the job: (1) weekly (2) every time there is new d
 
 ![alt text][logo]
 
-[logo]: https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 2"
+[logo]: https://github.com/cpapadimitriou/Lending-Club-Loan-Data/blob/master/images/Schema%20Detected%20by%20AWS%20crawler.png "Logo Title Text 2"
 
 
 ### Desktop Solution
