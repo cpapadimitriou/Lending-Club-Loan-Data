@@ -4,6 +4,8 @@
 
 In this project I will be exploring Lending Club’s loan origination data from 2007-2015, available via Kaggle: https://www.kaggle.com/wendykan/lending-club-loan-data
 
+---
+
 ## Part 1: Data Exploration and Evaluation
 
 In this section, I will perform an exploratory data analysis on Lending Club's loan data using a Jupyter notebook.
@@ -27,12 +29,14 @@ The detailed analysis and code can be found here: [Loan Data - EDA.ipynb](https:
         * Loan originations have been growing every year, with a larger growth rate in 2007-2015, than in 2015-2018.
 
 
+---
+
 ## Part 2: Data Pipeline Engineering 
 
 In this section I will create a data model in a database engine, persist the dataset into this storage system in a fully automated way, and develop some data validation procedures.
 I will implement this using two approaches:
-* A cloud-based approach using AWS Glue 
-* A desktop solution using SQL*Lite and python (this is solution is outlined but not implemented)
+1. A cloud-based approach using AWS Glue 
+2. A desktop solution using SQL*Lite and python (this is solution is outlined but not implemented)
 
 
 ### AWS Glue
@@ -211,6 +215,10 @@ root
 I used AWS Glue to create an ETL job in pySpark. AWS Glue automatically generates a diagram with the transformations that take place when the job runs. 
 I then added 2 triggers to run the job: (1) weekly (2) every time there is new data added to the S3 bucket. These jobs will ensure that the dataset persists into the storage system in a fully automated way. 
 
+
+![alt text][logo]
+
+[logo]: https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 2"
 
 
 ### Desktop Solution
