@@ -260,14 +260,14 @@ modify the data schema by breaking down the tables into:
 
 ### Desktop Data Engineering Solution
 
-In this section I will propose an alternative data engineering solution using a Desktop solution instead of a cloud solution. 
+In this section, I will propose an alternative data engineering solution using a Desktop approach instead of a Cloud approach. 
 
-Here, I will propose using the Anaconda distribution of Python locally with an SQL connector.
+The below steps can be completed using the Anaconda distribution of Python locally with an SQL connector.
 
-* **Step 1**. Use SQL*Lite which is built into Python to work out the data schemas. 
-* **Step 2**. If a larger database is needed, we can re-target into another SQL such as Postgres without having to change a lot of the code 
-* **Step 3**. For the data validation we consider the following technique:
+* **Step 1**. Use SQL*Lite which is built into Python to work out the data model/schema 
+* **Step 2**. If a larger database is needed, re-target into another SQL such as Postgres without having to change a lot of the code 
+* **Step 3**. For the data validation, consider the following technique:
     * load the data "as is" into "staging tables"
-    * use SQL to explore and understand the data, identify problems with the data, etc
+    * use SQL to explore and understand the data, identify problems with the data, etc.
     * use a combination of python with SQL to cleanse the data in the staging tables
     * move the data to real tables
