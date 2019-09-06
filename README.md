@@ -53,7 +53,7 @@ https://docs.aws.amazon.com/glue/latest/dg/what-is-glue.html
 Below are the steps I followed to build a data engineering solution using AWS Glue:
 
 - **Step 1**. First, I uploaded the `loan.csv` file with the lending club data to an AWS S3 bucket.
-- **Step 2**. Then I pointed AWS Glue to my data file in the S3 bucket.
+- **Step 2**. Then, I pointed AWS Glue to my data file in the S3 bucket.
 - **Step 3**. Next, I created a data model/schema using an AWS crawler. The AWS crawler discovered a schema and then published the schema into the AWS data catalog.
 The AWS crawler has built-in classifiers to recognize popular data types but it also allows manual creation of classifiers using regex.
 
@@ -63,11 +63,11 @@ The AWS crawler has built-in classifiers to recognize popular data types but it 
 
 
 
-- **Step 4**. The next step is the mapping. Here I map the sourced schema discovered by the AWS crawler to my target schema. I used the AWS Glue UI to make changes to the data types.
+- **Step 4**. The next step is the mapping. Here I mapped the sourced schema discovered by the AWS crawler to my target schema. I used the AWS Glue UI to make changes to the data types.
 
-![alt text][logo]
+![alt text][logo1]
 
-[logo]: https://github.com/cpapadimitriou/Lending-Club-Loan-Data/blob/master/images/Schema%20Detected%20by%20AWS%20crawler.png "Mapping Source to Target Schema"
+[logo1]: https://github.com/cpapadimitriou/Lending-Club-Loan-Data/blob/master/images/Mapping%20Source%20to%20Target%20Schema.png "Mapping Source to Target Schema"
 
 
 Here is the target data schema: 
@@ -228,12 +228,24 @@ root
 |-- sec_app_mths_since_last_major_derog: long
 ```
 
-- Step 5. Edit and Explore - running queries against the data (using SQL queries on AWS Athena)
-- Step 6. Here I am able to create aggregate tables from queries or join different data tables together. In our case we only have one table so there is no need to join datasets.
-- Step 6. Schedule ETL jobs and define triggers to run jobs based on a schedule or event. Monitor the jobs using AWS Glue.
-I used AWS Glue to create an ETL job in pySpark. AWS Glue automatically generates a diagram with the transformations that take place when the job runs. 
-I then added 2 triggers to run the job: (1) weekly (2) every time there is new data added to the S3 bucket. These jobs will ensure that the dataset persists into the storage system in a fully automated way. 
+- **Step 5**. Next, I explored the data and run SQL queries against it using AWS Athena. The data can also be imported in a SageMaker jupyter notebook for analytics and Machine Learning model training and evaluation. 
+Here I am able to create aggregate tables from queries or join different data tables together. In our case we only have one table so there is no need to join datasets.
 
+![alt text][logo2]
+
+[logo2]: https://github.com/cpapadimitriou/Lending-Club-Loan-Data/blob/master/images/Query%20Data%20with%20AWS%20Athena.png "SQL Queries with AWS Athena"
+
+
+- **Step 6**. Lastly, I schedule ETL jobs and defined triggers to run jobs based on a schedule or event. 
+Specifically, I used AWS Glue to create ETL jobs in pySpark. AWS Glue automatically generates a diagram with the transformations that take place when the job runs. 
+I added 2 triggers to run the job: (1) weekly (2) every time there is new data added to the S3 bucket. These jobs will ensure that the dataset persists into the storage system in a fully automated way. 
+I monitored the jobs using AWS Glue. 
+
+[ETL job with pySpark](https://github.com/cpapadimitriou/Lending-Club-Loan-Data/blob/master/ETL_job_pySpark.py)
+
+![alt text][logo2]
+
+[logo2]: https://github.com/cpapadimitriou/Lending-Club-Loan-Data/blob/master/images/ETL%20Job%20and%20Diagram.png "ETL job and diagram"
 
 
 
