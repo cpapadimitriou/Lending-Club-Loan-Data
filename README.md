@@ -247,22 +247,24 @@ I monitored the jobs using AWS Glue.
 
 [logo2]: https://github.com/cpapadimitriou/Lending-Club-Loan-Data/blob/master/images/ETL%20Job%20and%20Diagram.png "ETL job and diagram"
 
-#### Future System Improvements
-
-* Further data exploration to identify any potential data issues that have not been detected
-* In the current schema the data is hosted in one table because the `id` and `member_id` columns are 100% null, which does not allow us to break down the data into loan-level and member-level. If those columns where populate, I would
-modify the data schema by breaking down the tables into:
-    * a `loan_data_table`: including the features at the loan level with a unique identifier the loan id (`id`)
-    * a `member_data_table`: including the features at the member (borrower) level with a unique identifier the member id (`member_id`)
-    * a `loan_to_member_data`: a mapping table that maps the loan id to the member id (`id` -> `member_id`)
 
 ---
 
 ### Desktop Data Engineering Solution
 
-In this section, I will propose an alternative data engineering solution using a Desktop approach instead of a Cloud approach. 
+In this section, I will implement an alternative data engineering solution using a Desktop approach instead of a Cloud approach. 
 
-The below steps can be completed using the Anaconda distribution of Python locally with an SQL connector.
+I will use python and the `SQLAlchemy` library to build an ETL data pipeline, and an `SQLite` database to store the data. 
+The data engineering pipeline can be found here: [Loan Data - Data Pipeline.ipynb](https://github.com/cpapadimitriou/Lending-Club-Loan-Data/blob/master/Loan%20Data%20-%20Data%20Pipeline.ipynb)
+
+* **Step 1**. First, I created a database on SQLite called `loans.db`
+* **Step 2**. Then, I defined a data model/schema using `SQLAlchemy`. I defined the data types based on my earlier exploratory analysis in 
+[Loan Data - EDA.ipynb](https://github.com/cpapadimitriou/Lending-Club-Loan-Data/blob/master/Loan%20Data%20-%20EDA.ipynb). 
+My schema consists of only one table `loans`, but as I mentioned later in the future system improvements, 
+if the `member_id` column was not empty I would be able to build a schema with two tables separating the loan level data from the member level data.
+In this step, I also connected to my database via an SQL UI on IntelliJ
+
+
 
 * **Step 1**. Use SQL*Lite which is built into Python to work out the data model/schema 
 * **Step 2**. If a larger database is needed, re-target into another SQL such as Postgres without having to change a lot of the code 
@@ -271,3 +273,16 @@ The below steps can be completed using the Anaconda distribution of Python local
     * use SQL to explore and understand the data, identify problems with the data, etc.
     * use a combination of python with SQL to cleanse the data in the staging tables
     * move the data to real tables
+
+
+
+--- 
+
+#### Future System Improvements
+
+* Further data exploration to identify any potential data issues that have not been detected
+* In the current schema the data is hosted in one table because the `id` and `member_id` columns are 100% null, which does not allow us to break down the data into loan-level and member-level. If those columns where populate, I would
+modify the data schema by breaking down the tables into:
+    * a `loan_data_table`: including the features at the loan level with a unique identifier the loan id (`id`)
+    * a `member_data_table`: including the features at the member (borrower) level with a unique identifier the member id (`member_id`)
+    * a `loan_to_member_data`: a mapping table that maps the loan id to the member id (`id` -> `member_id`)
