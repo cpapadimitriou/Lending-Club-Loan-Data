@@ -266,7 +266,7 @@ In this step, I also connected to my database via an SQL IDE on IntelliJ IDEA, w
 
 ![alt text][logo3]
 
-[logo3]: https://github.com/cpapadimitriou/Lending-Club-Loan-Data/blob/master/images/SQL%20UI.png "SQL UI on IntelliJ IDEA"
+[logo3]: https://github.com/cpapadimitriou/Lending-Club-Loan-Data/blob/master/images/SQL.png "SQL UI on IntelliJ IDEA"
 
 
 * **Step 3**. The next step is to extract the data from its original source (i.e `loans.csv` file) and load it into my jupyter notebook using the `pandas` library.
