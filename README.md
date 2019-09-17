@@ -260,19 +260,16 @@ The data engineering pipeline can be found here: [Loan Data - Data Pipeline.ipyn
 * **Step 1**. First, I created a database on SQLite called `loans.db`
 * **Step 2**. Then, I defined a data model/schema using `SQLAlchemy`. I defined the data types based on my earlier exploratory analysis in 
 [Loan Data - EDA.ipynb](https://github.com/cpapadimitriou/Lending-Club-Loan-Data/blob/master/Loan%20Data%20-%20EDA.ipynb). 
-My schema consists of only one table `loans`, but as I mentioned later in the future system improvements, 
+My schema consists of only one table `tbl_loans`, but as I mentioned later in the future system improvements, 
 if the `member_id` column was not empty I would be able to build a schema with two tables separating the loan level data from the member level data.
-In this step, I also connected to my database via an SQL UI on IntelliJ
+In this step, I also connected to my database via an SQL IDE on IntelliJ IDEA, which I will use later to easily run SQL queries and create stored procedures. 
+
+![alt text][logo3]
+
+[logo3]: https://github.com/cpapadimitriou/Lending-Club-Loan-Data/blob/master/images/SQL%20UI.png
 
 
 
-* **Step 1**. Use SQL*Lite which is built into Python to work out the data model/schema 
-* **Step 2**. If a larger database is needed, re-target into another SQL such as Postgres without having to change a lot of the code 
-* **Step 3**. For the data validation, consider the following technique:
-    * load the data "as is" into "staging tables"
-    * use SQL to explore and understand the data, identify problems with the data, etc.
-    * use a combination of python with SQL to cleanse the data in the staging tables
-    * move the data to real tables
 
 
 
